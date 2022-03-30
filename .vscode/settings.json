@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "eigen":"cpp",
+        "*.ipp":"cpp",
+        "system_error":"cpp"
+    }
+}
