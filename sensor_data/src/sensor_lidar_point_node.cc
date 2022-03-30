@@ -20,7 +20,7 @@ public:
     // void ScanCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg);
     PointCloud2();
     ~PointCloud2();
-    void ScanCallback(const sensor_msgs::PointCloud2::ConstPtr &point_msg);
+    void PointCallback(const sensor_msgs::PointCloud2::ConstPtr &point_msg);
 };
 
 // 构造函数
@@ -34,7 +34,7 @@ PointCloud2::PointCloud2() : private_node_("~")
 {
     ROS_INFO_STREAM("PointCloud2.");
     // 将雷达的回调函数与订阅的topic进行绑定
-    point_cloud_subscriber_ = node_handle_.subscribe("point_cloud", 1, &PointCloud2::PointCallback, this);
+    point_cloud_subscriber_ = node_handle_.subscribe("/points_raw", 1, &PointCloud2::PointCallback, this);
 }
 PointCloud2::~PointCloud2()
 {
@@ -128,18 +128,18 @@ void PointCloud2::PointCallback(const sensor_msgs::PointCloud2::ConstPtr &point_
         ", time stamp: " << point_msg->header.stamp << 
         ", frame_id: " << point_msg->header.frame_id << 
         ", height: " << point_msg->height << 
-        ", wdith: " << point_msg->wdith << 
+        ", width: " << point_msg->width << 
         ", pint_step: " << point_msg->point_step << 
         ", row_step: " << point_msg->row_step);
 
     // 第5个点的欧式坐标为
 
 	sensor_msgs::PointCloud out_pointcloud;
-	sensor_msgs::convertPointCloud2ToPointCloud(point_msg, out_pointcloud);
+	sensor_msgs::convertPointCloud2ToPointCloud(*point_msg, out_pointcloud);
 	// for (int i=0; i<out_pointcloud.points.size(); i++) {
 		// cout << out_pointcloud.points[i].x << ", " << out_pointcloud.points[i].y << ", " << out_pointcloud.points[i].z << endl;
 	// }
-	cout << "------" << endl;
+	std::cout << "------" << std::endl;
 
     ROS_INFO_STREAM(
         ",x = " << out_pointcloud.points[4].x << ", y = " << out_pointcloud.points[4].y<<",z="<<out_pointcloud.points[4].z;
