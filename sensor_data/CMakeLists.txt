@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(lesson1)
+project(sensor_data_lidar)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -132,7 +132,8 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_laser_scan_node src/laser_scan_node.cc)
+# add_executable(${PROJECT_NAME}_sensor_lidar_point_node  src/sensor_lidar_point_node.cc)
+add_executable(sensor_data_lidar  src/sensor_lidar_point_node.cc)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -142,20 +143,25 @@ add_executable(${PROJECT_NAME}_laser_scan_node src/laser_scan_node.cc)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(${PROJECT_NAME}_laser_scan_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME}_sensor_lidar_point_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(sensor_data_lidar ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_laser_scan_node
-  ${catkin_LIBRARIES}
+# target_link_libraries(${PROJECT_NAME}_sensor_lidar_point_node
+#   ${catkin_LIBRARIES}
+# )
+target_link_libraries(sensor_data_lidar
+${catkin_LIBRARIES}
 )
 
-add_executable(${PROJECT_NAME}_feature_detection_node src/feature_detection.cc)
-add_dependencies(${PROJECT_NAME}_feature_detection_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#add_executable(${PROJECT_NAME}_feature_detection_node src/feature_detection.cc)
+#add_dependencies(${PROJECT_NAME}_feature_detection_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_feature_detection_node
-  ${catkin_LIBRARIES}
-)
+## target_link_libraries(${PROJECT_NAME}_feature_detection_node
+##  ${catkin_LIBRARIES}
+##)
 
 #############
 ## Install ##
